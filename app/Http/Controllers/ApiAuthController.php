@@ -26,6 +26,10 @@ class ApiAuthController extends Controller
                 $user = User::whereEmail($request->email)->first();
                 $user->token = $user->createToken('App')->accessToken;
                 return response()->json(['token' => $user->token]);
+            } else {
+                return response()->json([
+                    'message' => 'Unauthorized'
+                ], 401);
             }
         }
     }

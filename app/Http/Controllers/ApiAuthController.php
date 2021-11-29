@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class ApiAuthController extends Controller
 {
     public function login(Request $request) {
-        // $validator = Validator::make($request->all(), [
-        //     'email' => ['required', 'string', 'email', 'max:255'],
-        //     'password' => ['required', 'string', 'min:5'],
-        // ]);
-        // if ($validator->fails()) {
-        //     $response = $validator->messages();
-        //     return response()->json(['message' => $response], 422);
-        // } else {
+        $validator = Validator::make($request->all(), [
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:5'],
+        ]);
+        if ($validator->fails()) {
+            $response = $validator->messages();
+            return response()->json(['message' => $response], 422);
+        } else {
             if (Auth::attempt([
                 'email' => $request->email,
                 'password' => $request->password
@@ -27,7 +27,7 @@ class ApiAuthController extends Controller
                 $user->token = $user->createToken('App')->accessToken;
                 return response()->json(['token' => $user->token]);
             }
-        // }
+        }
     }
 
     public function register(Request $request) {

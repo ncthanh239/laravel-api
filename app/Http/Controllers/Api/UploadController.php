@@ -32,7 +32,7 @@ class UploadController extends Controller
       }
       $imageData = DB::table('images')->select('filename')->get();
       foreach ($imageData as $key => $value) {
-        $imgURl[] = env('APP_URL').$value->filename;
+        $imgURl[] = env('APP_URL').':81'.$value->filename;
       }
       return response()->json($imgURl);
     }

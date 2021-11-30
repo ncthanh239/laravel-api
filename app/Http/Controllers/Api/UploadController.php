@@ -27,12 +27,12 @@ class UploadController extends Controller
         // $image->move(base_path() . '/public/uploads/file/', $name);
         Image::create([
           'name' => $name,
-          'filename' => '/storage/'.$path
+          'filename' => env('APP_URL').'/storage/'.$path
         ]);
       }
       $imageData = DB::table('images')->select('filename')->get();
       foreach ($imageData as $key => $value) {
-        $imgURl[] = env('APP_URL').$value->filename;
+        $imgURl[] = $value->filename;
       }
       return response()->json($imgURl);
     }

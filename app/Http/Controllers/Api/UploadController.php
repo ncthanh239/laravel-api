@@ -13,7 +13,7 @@ class UploadController extends Controller
   public function list() {
   	$images = DB::table('images')->select('filename')->get();
     foreach ($images as $key => $value) {
-      $imgURl[] = env('APP_URL').$value->filename;
+      $imgURl[] = $value->filename;
     }
     return response()->json($imgURl);
   }
